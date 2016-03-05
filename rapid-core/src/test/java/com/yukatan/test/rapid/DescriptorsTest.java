@@ -34,4 +34,6 @@ public class DescriptorsTest {
         assertNotNull(apiDescriptor);
         assertEquals(TEST_PATH,apiDescriptor.getEndpoints().get(0).getPath());
     }
+
+
 }

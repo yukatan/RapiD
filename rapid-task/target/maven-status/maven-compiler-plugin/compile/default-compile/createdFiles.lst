@@ -1,0 +1,4 @@
+org/yukatan/rapid/task/DefaultSequentialTaskImpl.class
+org/yukatan/rapid/task/print/PrintScopeTask.class
+org/yukatan/rapid/task/Task.class
+org/yukatan/rapid/task/SequentialTask.class

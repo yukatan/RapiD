@@ -1,0 +1,11 @@
+api:
+  endpoints:
+    -
+      path: /controller/test
+      method: GET
+    -
+      path: /controller/headers
+      method: GET
+      tasks:
+        -
+          type: 'print-scope'
