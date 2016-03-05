@@ -1,5 +1,7 @@
 # RapiD
-Rapid API Development [![Build Status](https://travis-ci.org/yukatan/RapiD.svg?branch=master)](https://travis-ci.org/yukatan/RapiD)
+[![Build Status](https://travis-ci.org/yukatan/RapiD.svg?branch=master)](https://travis-ci.org/yukatan/RapiD)
+
+#Rapid API Development 
 
 ##License
 
