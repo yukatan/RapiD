@@ -10,6 +10,10 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <properties>
+        <trimou.version>1.8.4.Final</trimou.version>
+    </properties>
+
     <artifactId>rapid-core</artifactId>
 
     <dependencies>
@@ -21,6 +25,16 @@
             <groupId>org.yukatan.rapid</groupId>
             <artifactId>rapid-task</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.trimou</groupId>
+            <artifactId>trimou-core</artifactId>
+            <version>${trimou.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
         </dependency>
     </dependencies>
 

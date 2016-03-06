@@ -45,6 +45,6 @@ public class ControllerTest {
     @Test
     public void testControllerHeaders() throws Exception {
 
-        mockMvc.perform(get("/controller/headers").header("test-header","test-header-value")).andExpect(status().isOk());
+        mockMvc.perform(get("/controller/headers").header("empty-header","test-header-value")).andExpect(status().isOk());
     }
 }

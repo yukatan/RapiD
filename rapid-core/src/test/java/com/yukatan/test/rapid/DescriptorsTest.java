@@ -32,7 +32,7 @@ public class DescriptorsTest {
     public void testEnpointPath() throws Exception {
 
         assertNotNull(apiDescriptor);
-        assertEquals(TEST_PATH,apiDescriptor.getEndpoints().get(0).getPath());
+        assertEquals(TEST_PATH,apiDescriptor.getEndpoints().get(0).get("path"));
     }
 
 

@@ -1,11 +1,16 @@
 api:
   endpoints:
     -
-      path: /controller/test
-      method: GET
+      path: '/controller/test'
+      method: 'GET'
     -
-      path: /controller/headers
-      method: GET
-      tasks:
+      path: '/controller/headers'
+      method: 'GET'
+      validation:
         -
-          type: 'print-scope'
+          type: 'notNull'
+          scopePath: 'request.headers.empty-header'
+          chain:
+            -
+              type: 'mandril'
+

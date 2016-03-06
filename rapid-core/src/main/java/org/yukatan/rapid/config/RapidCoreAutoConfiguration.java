@@ -1,10 +1,13 @@
 package org.yukatan.rapid.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.yukatan.rapid.core.controller.RapidGenericController;
 import org.yukatan.rapid.core.descriptor.ApiDescriptor;
+import org.yukatan.rapid.core.error.ErrorHandler;
 import org.yukatan.rapid.core.handler.HandlerBootStrap;
 import org.yukatan.rapid.core.handler.RapidRequestHandler;
 
@@ -12,7 +15,11 @@ import org.yukatan.rapid.core.handler.RapidRequestHandler;
  * Created by Jesus Barquín on 5/03/16.
  */
 @Configuration
+@ComponentScan()
 public class RapidCoreAutoConfiguration {
+
+    @Autowired
+    private ApiDescriptor apiDescriptor;
 
     @Bean
     public RapidRequestHandler rapidRequestHandler() {
@@ -40,4 +47,11 @@ public class RapidCoreAutoConfiguration {
 
         return new HandlerBootStrap();
     }
+
+    @Bean
+    public ErrorHandler errorHandler() {
+
+        return new ErrorHandler();
+    }
+
 }

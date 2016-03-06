@@ -4,14 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.yukatan.rapid.core.controller.RapidGenericController;
 import org.yukatan.rapid.core.descriptor.ApiDescriptor;
-import org.yukatan.rapid.core.descriptor.EndPointDescriptor;
-import org.yukatan.rapid.core.descriptor.TaskDescriptor;
+import org.yukatan.rapid.core.descriptor.RapidDescriptor;
 import org.yukatan.rapid.task.DefaultSequentialTaskImpl;
 import org.yukatan.rapid.task.Task;
+import org.yukatan.rapid.task.ValidationTask;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,36 +34,42 @@ public class HandlerBootStrap {
     @PostConstruct
     public void start() {
 
-        for (EndPointDescriptor descriptor : apiDescriptor.getEndpoints()) {
+        for (RapidDescriptor endPointDescriptor : apiDescriptor.getEndpoints()) {
 
-            registerEndPointHandler(descriptor);
+            registerEndPointHandler(endPointDescriptor);
         }
     }
 
-    private void registerEndPointHandler(EndPointDescriptor descriptor) {
+    private void registerEndPointHandler(RapidDescriptor endpointDescriptor) {
 
         RapidGenericController controller = context.getBean(RapidGenericController.class);
-        if(descriptor.getTasks() != null && !descriptor.getTasks().isEmpty()) {
-            controller.setTaskChain(buildTaskChain(descriptor));
+        LinkedHashMap<String,Object> validation = endpointDescriptor.getValidation();
+        if (validation != null) {
+            Task validationChain = buildValidationChain(validation);
+            controller.setTaskChain(validationChain);
         }
-        rapidRequestHandler.registerHandlerMethod(controller, getHandlerMethod(controller), RequestMappingInfoBuilder.build(descriptor));
+        rapidRequestHandler.registerHandlerMethod(controller, getHandlerMethod(controller), RequestMappingInfoBuilder.build(endpointDescriptor));
     }
 
     private Method getHandlerMethod(RapidGenericController controller) {
 
         try {
-            return controller.getClass().getMethod("handle", Map.class,Map.class,Map.class);
+            return controller.getClass().getMethod("handle", Map.class, Map.class, Map.class);
         } catch (NoSuchMethodException e) {
             return null;
         }
     }
 
-    private Task buildTaskChain(EndPointDescriptor descriptor){
+    private Task buildValidationChain(LinkedHashMap<String,Object> descriptor) {
 
-        List<Task> task = new ArrayList<Task>();
-        for (TaskDescriptor taskDescriptor: descriptor.getTasks()){
+        List<Task> task = new ArrayList<>();
+        for(String key: descriptor.keySet()){
 
-            task.add(context.getBean(taskDescriptor.getType(),Task.class));
+            LinkedHashMap<String,Object> validationDescriptor = (LinkedHashMap<String, Object>) descriptor.get(key);
+            ValidationTask validationTask = context.getBean(validationDescriptor.get("type").toString(),ValidationTask.class);
+            validationTask.setScopePath(validationDescriptor.get("scopePath").toString());
+            validationTask.setProps((LinkedHashMap<String, Object>) validationDescriptor.get("props"));
+            task.add(validationTask);
         }
         return new DefaultSequentialTaskImpl(task);
     }

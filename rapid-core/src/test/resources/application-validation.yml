@@ -1,0 +1,34 @@
+api:
+  defaultErrorTemplate: '/templates/error/default-error.json'
+  defaultValidationErrorStatus: '400'
+  endpoints:
+    -
+      path: '/validation/headers/notnull'
+      method: 'GET'
+      validation:
+        -
+          type: 'notNull'
+          scopePath: 'request.headers.null-header'
+          props:
+            code: '400'
+            message: 'Bad Request'
+    -
+      path: '/validation/headers/ifpresent'
+      method: 'GET'
+      validation:
+        -
+          type: 'ifPresent'
+          scopePath: 'request.headers.present-header'
+          props:
+            code: '400'
+            message: 'Bad Request'
+    -
+      path: '/validation/headers/notblank'
+      method: 'GET'
+      validation:
+        -
+          type: 'notBlank'
+          scopePath: 'request.headers.blank-header'
+          props:
+            code: '400'
+            message: 'Bad Request'

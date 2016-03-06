@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.yukatan.rapid.common.model.RapidScope;
+import org.yukatan.rapid.common.model.ScopeKeys;
 import org.yukatan.rapid.task.Task;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,13 +20,14 @@ public class RapidGenericController {
 
     private Task taskChain;
 
-    public ResponseEntity handle(@RequestParam(required = false) Map<String,String> params,
+    public ResponseEntity handle(@RequestParam(required = false) Map<String,Object> params,
                                  @RequestBody(required = false) Map<String,Object> body,
-                                 @RequestHeader(required = false) Map<String,String> headers){
+                                 @RequestHeader(required = false) Map<String,Object> headers){
 
-        RapidScope scope = new RapidScope();
-        scope.setHeaders(headers);
-        scope.setParams(params);
+        RapidScope scope = RapidScope.create();
+        HashMap<String,Object> requestScope = scope.getRequestScope();
+        requestScope.put("headers",headers);
+        requestScope.put("params",params);
         if(taskChain != null) {
             taskChain.execute(scope);
         }
@@ -34,4 +37,6 @@ public class RapidGenericController {
     public void setTaskChain(Task taskChain) {
         this.taskChain = taskChain;
     }
+
+
 }
