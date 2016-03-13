@@ -1,15 +1,16 @@
-package org.yukatan.rapid.core.descriptor;
+package org.yukatan.rapid.common.descriptor;
 
 import java.util.LinkedHashMap;
 
 /**
  * Created by Jesus Barquín on 5/03/16.
  */
+@SuppressWarnings("unchecked")
 public class RapidDescriptor extends LinkedHashMap<String,Object> {
 
-    public RapidDescriptor getDescriptor(String key){
+    public LinkedHashMap<String, Object> getPhaseDescriptor(String key){
 
-        return (RapidDescriptor) get(key);
+        return (LinkedHashMap<String, Object>) get(key);
     }
 
     public LinkedHashMap<String,Object> getValidation(){

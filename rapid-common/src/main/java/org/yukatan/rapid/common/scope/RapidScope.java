@@ -1,4 +1,4 @@
-package org.yukatan.rapid.common.model;
+package org.yukatan.rapid.common.scope;
 
 import java.util.HashMap;
 import java.util.Map;

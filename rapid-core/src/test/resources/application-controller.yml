@@ -8,7 +8,7 @@ api:
       method: 'GET'
       validation:
         -
-          type: 'notNull'
+          type: 'not-null'
           scopePath: 'request.headers.empty-header'
           chain:
             -

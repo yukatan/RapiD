@@ -1,4 +1,4 @@
-package org.yukatan.rapid.common.model;
+package org.yukatan.rapid.common.scope;
 
 /**
  * Created by Jesus Barquín on 6/03/16.

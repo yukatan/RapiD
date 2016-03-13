@@ -7,7 +7,7 @@ api:
       method: 'GET'
       validation:
         -
-          type: 'notNull'
+          type: 'not-null'
           scopePath: 'request.headers.null-header'
           props:
             code: '400'
@@ -17,7 +17,7 @@ api:
       method: 'GET'
       validation:
         -
-          type: 'ifPresent'
+          type: 'if-present'
           scopePath: 'request.headers.present-header'
           props:
             code: '400'
@@ -27,7 +27,7 @@ api:
       method: 'GET'
       validation:
         -
-          type: 'notBlank'
+          type: 'not-blank'
           scopePath: 'request.headers.blank-header'
           props:
             code: '400'

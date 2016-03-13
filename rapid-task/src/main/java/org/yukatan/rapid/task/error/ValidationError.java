@@ -1,6 +1,6 @@
 package org.yukatan.rapid.task.error;
 
-import org.yukatan.rapid.common.model.RapidScope;
+import org.yukatan.rapid.common.scope.RapidScope;
 
 /**
  * Created by Jesus Barquín on 6/03/16.

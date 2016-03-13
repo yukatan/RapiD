@@ -1,24 +1,22 @@
 package org.yukatan.rapid.core.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.yukatan.rapid.common.descriptor.ApiDescriptor;
+import org.yukatan.rapid.common.descriptor.RapidDescriptor;
+import org.yukatan.rapid.core.context.ExecutionContext;
+import org.yukatan.rapid.core.context.ExecutionContextFactory;
+import org.yukatan.rapid.core.controller.ControllerFactory;
 import org.yukatan.rapid.core.controller.RapidGenericController;
-import org.yukatan.rapid.core.descriptor.ApiDescriptor;
-import org.yukatan.rapid.core.descriptor.RapidDescriptor;
-import org.yukatan.rapid.task.DefaultSequentialTaskImpl;
-import org.yukatan.rapid.task.Task;
-import org.yukatan.rapid.task.ValidationTask;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Jesus Barquín on 5/03/16.
  */
+@Slf4j
 public class HandlerBootStrap {
 
     @Autowired
@@ -28,27 +26,21 @@ public class HandlerBootStrap {
     private RapidRequestHandler rapidRequestHandler;
 
     @Autowired
-    private ApplicationContext context;
+    private ExecutionContextFactory executionContextFactory;
 
+    @Autowired
+    private ControllerFactory controllerFactory;
 
     @PostConstruct
     public void start() {
 
-        for (RapidDescriptor endPointDescriptor : apiDescriptor.getEndpoints()) {
+        for (RapidDescriptor descriptor : apiDescriptor.getEndpoints()) {
 
-            registerEndPointHandler(endPointDescriptor);
+            ExecutionContext executionContext = executionContextFactory.create();
+            executionContext.bootStrapContext(descriptor);
+            RapidGenericController controller = controllerFactory.create(executionContext);
+            rapidRequestHandler.registerHandlerMethod(controller, getHandlerMethod(controller), RequestMappingInfoBuilder.build(descriptor));
         }
-    }
-
-    private void registerEndPointHandler(RapidDescriptor endpointDescriptor) {
-
-        RapidGenericController controller = context.getBean(RapidGenericController.class);
-        LinkedHashMap<String,Object> validation = endpointDescriptor.getValidation();
-        if (validation != null) {
-            Task validationChain = buildValidationChain(validation);
-            controller.setTaskChain(validationChain);
-        }
-        rapidRequestHandler.registerHandlerMethod(controller, getHandlerMethod(controller), RequestMappingInfoBuilder.build(endpointDescriptor));
     }
 
     private Method getHandlerMethod(RapidGenericController controller) {
@@ -58,20 +50,6 @@ public class HandlerBootStrap {
         } catch (NoSuchMethodException e) {
             return null;
         }
-    }
-
-    private Task buildValidationChain(LinkedHashMap<String,Object> descriptor) {
-
-        List<Task> task = new ArrayList<>();
-        for(String key: descriptor.keySet()){
-
-            LinkedHashMap<String,Object> validationDescriptor = (LinkedHashMap<String, Object>) descriptor.get(key);
-            ValidationTask validationTask = context.getBean(validationDescriptor.get("type").toString(),ValidationTask.class);
-            validationTask.setScopePath(validationDescriptor.get("scopePath").toString());
-            validationTask.setProps((LinkedHashMap<String, Object>) validationDescriptor.get("props"));
-            task.add(validationTask);
-        }
-        return new DefaultSequentialTaskImpl(task);
     }
 
 }

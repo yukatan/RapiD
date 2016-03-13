@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.trimou.Mustache;
 import org.trimou.engine.MustacheEngineBuilder;
-import org.yukatan.rapid.common.model.RapidScope;
-import org.yukatan.rapid.core.descriptor.ApiDescriptor;
+import org.yukatan.rapid.common.scope.RapidScope;
+import org.yukatan.rapid.common.descriptor.ApiDescriptor;
 import org.yukatan.rapid.task.error.ValidationError;
 
 import javax.annotation.PostConstruct;

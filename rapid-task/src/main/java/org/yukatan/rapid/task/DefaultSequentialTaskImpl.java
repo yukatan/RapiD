@@ -1,6 +1,7 @@
 package org.yukatan.rapid.task;
 
-import org.yukatan.rapid.common.model.RapidScope;
+import org.yukatan.rapid.common.scope.RapidScope;
+import org.yukatan.rapid.common.task.Task;
 
 import java.util.List;
 

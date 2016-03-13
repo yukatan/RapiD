@@ -1,5 +1,7 @@
 package org.yukatan.rapid.task;
 
+import org.yukatan.rapid.common.task.Task;
+
 import java.util.LinkedHashMap;
 
 /**

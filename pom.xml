@@ -12,6 +12,7 @@
         <module>rapid-core</module>
         <module>rapid-task</module>
         <module>rapid-common</module>
+        <module>rapid-phase</module>
     </modules>
 
     <properties>
@@ -31,6 +32,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.8</version>
         </dependency>
     </dependencies>
 
