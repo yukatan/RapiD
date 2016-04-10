@@ -1,17 +1,18 @@
 package org.yukatan.rapid.core.controller;
 
-import org.springframework.beans.factory.annotation.Lookup;
-import org.springframework.stereotype.Component;
-import org.yukatan.rapid.core.context.ExecutionContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 /**
  * Created by Jesus Barquín on 13/03/16.
  */
-@Component
 public class ControllerFactory {
 
-    @Lookup
-    public RapidGenericController create(ExecutionContext context){
-        return null;
+    @Autowired
+    private ApplicationContext context;
+
+    public RapidGenericController create() {
+
+        return context.getBean(RapidGenericController.class);
     }
 }

@@ -10,10 +10,15 @@ import java.lang.reflect.Method;
  */
 public class RapidRequestHandler extends RequestMappingHandlerMapping {
 
+    public RapidRequestHandler() {
+        super.setOrder(Integer.MIN_VALUE);
+    }
 
     @Override
     protected void registerHandlerMethod(Object handler, Method method, RequestMappingInfo mapping) {
         super.registerHandlerMethod(handler, method, mapping);
     }
+
+
 
 }

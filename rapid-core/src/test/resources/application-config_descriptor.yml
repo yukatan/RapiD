@@ -1,0 +1,16 @@
+api:
+  endpoints:
+    test:
+      definition:
+        path: '/controller/test'
+        method: 'GET'
+      validation:
+        not-null:
+          scopePath: 'request.headers.test-header'
+          code: 400
+          message: 'Bad request'
+
+
+
+
+

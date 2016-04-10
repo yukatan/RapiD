@@ -1,6 +1,0 @@
-api:
-  endpoints:
-    -
-      path: /org/yukatan/test
-      method: GET
-

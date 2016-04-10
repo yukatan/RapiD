@@ -1,0 +1,12 @@
+api:
+  endpoints:
+    test:
+      definition:
+        path: '/controller/test'
+        method: 'GET'
+
+
+
+
+
+
