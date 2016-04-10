@@ -22,11 +22,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.yukatan.rapid</groupId>
-            <artifactId>rapid-task</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.trimou</groupId>
             <artifactId>trimou-core</artifactId>
             <version>${trimou.version}</version>
