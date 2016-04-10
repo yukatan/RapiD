@@ -10,9 +10,6 @@
     <version>0.1.0-SNAPSHOT</version>
     <modules>
         <module>rapid-core</module>
-        <module>rapid-task</module>
-        <module>rapid-common</module>
-        <module>rapid-phase</module>
     </modules>
 
     <properties>
